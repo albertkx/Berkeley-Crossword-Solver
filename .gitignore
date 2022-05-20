@@ -2,4 +2,4 @@ data/
 checkpoints/
 logs/
 __pycache__/
-*.json
+demo/*.json
