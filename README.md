@@ -112,6 +112,10 @@ Coming soon!
 
 Coming soon!
 
+## Crossword Dataset
+
+The dataset is [available](https://huggingface.co/datasets/albertxu/CrosswordQA) through Huggingface datasets
+
 ## Rescraping Data
 
 Coming soon!
