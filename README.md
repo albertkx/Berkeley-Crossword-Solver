@@ -33,7 +33,7 @@ We use [DPR](https://github.com/facebookresearch/DPR) as our retrieval system, a
 
 ## Running the Solver
 
-The easiest way to get started is to run our pretrained checkpoints. Our solver is built to run either on a `.json` [formatted puzzle](https://www.xwordinfo.com/JSON/) or `.puz` files from the New York Times. This requires a GPU. 
+The easiest way to get started is to run our pretrained checkpoints. Our solver is built to run either on a `.json` [formatted puzzle](https://www.xwordinfo.com/JSON/) or `.puz` files from the New York Times. [Here](https://github.com/albertkx/Berkeley-Crossword-Solver/blob/b319762a1c2fcebac3373adcbc43dbb959c2aafc/solver/Mar2321.puz) is a sample `.puz` file from the NYT. Running the solver requires a GPU. 
 
 To run on a `.json` puzzle:
 ```python3
