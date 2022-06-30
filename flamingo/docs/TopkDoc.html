@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TopkDoc â€“ Group</title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+<p>AppString
+&gt; AppStringDoc</p>
+<h1 id="Top-k">Top-k</h1>
+<h2 id="Overview">Overview</h2>
+<p>The module contains an implementation of the technique presented
+in [1].</p>
+<h2 id="Usage">Usage</h2>
+<p>For compiling instructions, please see CompileDoc.</p>
+<p>The module uses C++ STL TR1 library provided by GNU GCC.</p>
+<p>An example of how to use the module is available in
+<tt>src/topk/example.cc</tt>.</p>
+<h2 id="Interface">Interface</h2>
+<p>The module is divided in three components:</p>
+<ul>
+<li>Top-k Index</li>
+<li>Top-k Query Index</li>
+<li>Top-k Search Algorithms</li>
+</ul>
+<p>The Top-k Index (<tt>Topk::Index</tt>) class is defined in
+<tt>src/topk/topkindex.h</tt>. Its main methods are:</p>
+<pre class="wiki" xml:space="preserve">
+    Index();
+    Index(const std::string &amp;filename);
+
+    template&lt;class InputIterator&gt; 
+    void build(InputIterator begin, InputIterator end, const GramGen &amp;gramGen);
+
+    void load(const std::string &amp;filename);
+
+    void save(const std::string &amp;filename)
+      const;
+</pre>
+<p>The Top-k Query Index (<tt>Topk::IndexQuery</tt>) class contains
+a part of the index that is relevant for a particular query. This
+class is used by the search algorithms. It is defined in
+<tt>src/topk/topkindex.h</tt> and its main method is:</p>
+<pre class="wiki" xml:space="preserve">
+    IndexQuery(const Index &amp;idx, const Query &amp;query);
+</pre>
+<p>The Top-k Search Algorithms are defined in multiple files. All
+the algorithms define the <tt>getTopk</tt> method. Its prototype
+is:</p>
+<pre class="wiki" xml:space="preserve">
+    template&lt;
+      class RandomAccessIterator1, 
+      class RandomAccessIterator2, 
+      class OutputIterator&gt;  
+    void getTopk(
+      const RandomAccessIterator1 data, 
+      const RandomAccessIterator2 weights, 
+      const Index &amp;idx, 
+      const Query &amp;que, 
+      IndexQuery &amp;idxQue, 
+      OutputIterator topk);
+</pre>
+<p>The most popular algorithm is the heap-based algorithm. It is
+defined in the <tt>src/topk/topkheap.h</tt>.</p>
+<p>The main idea is that a <tt>Topk::Index</tt> object can be
+created to hold the index. The index can be build by specifying an
+iterator over a sequence of strings and a gram generator.
+Additionally, the index can be saved to disk and then loaded from
+disk. When a query comes, a <tt>Topk::IndexQuery</tt> object is
+created using the <tt>Topk::Index</tt> instance and the query.
+Finally, the search algorithm of choice can applied.</p>
+<h2 id="Contributors">Contributors</h2>
+<ul>
+<li>Rares Vernica</li>
+</ul>
+<hr></hr>
+<p>[1] Rares Vernica, Chen Li: Efficient top-k algorithms for fuzzy
+search in string collections. KEYS 2009: 9-14. (Workshop on Keyword
+Search on Structured Data, collocated with SIGMOD 2009)</p>
+</div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

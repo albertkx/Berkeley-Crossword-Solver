@@ -1,0 +1,77 @@
+manifest                # this file
+Makefile                # no .configure etc
+score.h                 # basic header; everything about scoring but *not*
+                        # about puzzles, words in puzzles, etc
+solvergui.h             # a few constants needed by the GUI as well
+xw.h                    # headers related to puzzles, solver, etc
+bits.h                  # header for bits.cpp
+bits.cpp                # vector<bool> allowing conjunction and other ops
+compress.cpp            # compressed strings, each char in 5 bits
+wide.h                  # code to help convert non-ascii to ascii
+puz.cpp                 # read or write Across Lite files (buggy in ways
+                        # that don't matter)
+writefill.py            # python script to write out valid Across Lite files
+utils.cpp               # simple utilities: time, string manipulation,
+                        # tokenization, parameter handling for tuning,
+                        # to/from pronunciation string
+display.cpp             # display various data types, generally via walkthrough
+word.cpp                # utilities for dealing with sequences of squares
+data.cpp                # construct the database from the source files;
+                        # also use what's in the DB
+dump.cpp                # write/read compressed database
+xw.cpp                  # process command line, general initialization,
+                        # call solver.  main is here
+pos.cpp                 # POS analysis
+score.cpp               # score for a file in a given word slot.  Lower is better
+xref.cpp                # cross-reference clues, along with
+clue.cpp                # fills based on clue
+fill.cpp                # data structure to find words matching patterns
+trans.cpp               # clue transformation to look for "exact" matches
+rebus.cpp               # deal with rebus puzzles, basically via rebus fills
+multiword.cpp           # deal with sequences of words, including wild chars
+flamingo.cpp            # use Flamingo (from UC Irvine) to find the dictionary
+                        # word(s) closest to proposed fill AND SAME LENGTH
+t2p.c                   # interface to CMU pronunciation flite code (written
+                        # by them, give or take)
+lev.cpp                 # pure theme construction based on Levenshtein distance
+theme.cpp               # use of themes to help solve puzzle
+geom.cpp                # geometry themes
+fitb.h                  # structures needed by FITB analysis
+fitb.cpp                # FITB analysis (hard part is data structures to use)
+solve.cpp               # everything involved in solving (including some LDS,
+                        # theme, Flamingo and rebus mods, error reporting at end)
+                        # *except* managing individual solving tasks
+task.cpp                # task management for LDS, search-based postprocess
+tune.cpp                # tuning various parameters
+xwg.h                   # headers for GUI
+xwg.cpp                 # GUI, except for rendering events
+gui.cpp                 # GUI, rendering events
+
+# The crossword database is constructed from the following files.
+
+enum { NO_SPACES, FILLSTATS, POS_FROM_WORD, PARSINGS, POS_FROM_POS, STATS, ROOTS,
+       BASIC, DICTIONARY, PRON_FILE, SPACE_FILE, CLUE_FILE,
+       DB, FLAMINGO, PFLAMINGO, MOBYF, FITB_DIR, NFILES };
+
+# descriptor    file name       creator         description
+
+NO_SPACES       mlg.txt         drfill.sh       # list of word-no-space score
+FILLSTATS       fillstats       database.sh     # p(score | word in puzzle)
+POS_FROM_WORD   parts_of_speech database.sh     # POS for all words
+PARSINGS        parsings        database.sh     # clue parse information
+POS_FROM_POS    pos_from_pos    database.sh     # POS from first/last clue word
+STATS           stats           database.sh     # word appearance in clue info
+ROOTS           roots           STATIC          # word roots
+BASIC           basic_english   database.sh     # basic English words, from CCW
+DICTIONARY      dictwords.txt   database.sh     # list of word-with-spaces; score
+PRON_FILE       cmudict.0.7a    STATIC          # pronunciations
+SPACE_FILE      queries         STATIC          # google queries
+CLUE_FILE       okwords         ../wordlist     # clues and fill
+DB              db.bin          xw              # output database
+FLAMINGO        flamingo.bin    xw              # flamingo parts
+PFLAMINGO       pflamingo.bin   xw              # same for pronunciation parts
+MOBYF           mthesaur.txt    STATIC          # moby thesaurus
+FITB_DIR        fitb            blanks.sh       # FITB directory
+THEME_FILE      themewords      BY HAND (Krozel) # known theme words
+POS_FILE        mlg_pos         STATIC          # parts of speech
+NAME_FILE       names           drfill.sh       # names

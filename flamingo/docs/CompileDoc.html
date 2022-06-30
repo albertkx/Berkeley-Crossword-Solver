@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      CompileDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<h1 id="Compile">Compile</h1>
+<p>
+We use cmake to generate makefiles. If you don't have it you can install it with:
+</p>
+<pre class="wiki" xml:space="preserve">sudo apt-get install cmake
+</pre><p>
+To compile the code for a module, generate the makefile with cmake and run make, as follows:
+</p>
+<pre class="wiki" xml:space="preserve">cmake .
+make
+</pre><p>
+For example, let's say you extracted flamingo into the folder:
+</p>
+<pre class="wiki" xml:space="preserve">/home/joe/flamingo-4.0/src
+</pre><p>
+Then if you want to build the filtertree module in /home/joe/flamingo-4.0/src/filtertree do the following:
+</p>
+<pre class="wiki" xml:space="preserve">cd /home/joe/flamingo-4.0/src/filtertree
+cmake .
+make
+</pre><p>
+Please note that for the <tt>mattree</tt> module, there is no makefile provided, only a Visual C++ project file is provided. This module has not been compiled using GCC.
+</p>
+
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

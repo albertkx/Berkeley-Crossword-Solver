@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      MatTreeDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<h1 id="MAT-Tree">MAT-Tree</h1>
+<h2 id="Overview">Overview</h2>
+<p>
+MAT-tree: A tree-based structure for indexing string and numeric attributes.  Using MAT-tree, we can perform range queries on both string and numeric attributes. [1]
+</p>
+<h2 id="Usage">Usage</h2>
+<p>
+The program can be compiled using Visual C or gnu C++.
+</p>
+<p>
+Compile the project in Visual C, and run accordingly. You can also write a makefile and compile it using a GNU C compiler.
+</p>
+<h2 id="Interface">Interface</h2>
+<p>
+Main files:
+</p>
+<ul><li>RETree.cpp - includes main() and the MAT-tree functions
+</li><li>index.h, index.cpp - defines data structures, such as Node, Record, Query, etc.
+</li><li>node.cpp, Rect.cpp - defines basic functions for Node and Rect
+</li><li>Trie.h, Trie.cpp - defines the Trie class and all Trie functions
+</li><li>distance.h, distance.cpp - defines Distance1 class to calculate the edit distance between two strings
+</li><li>NFA.h, NFA.cpp - defines the automaton class
+</li><li>NFANode.h, NFANode.cpp - defines the Node of NFA
+</li><li>NFATransition.h, NFATransition.cpp - defines the Edge of NFA
+</li><li>NFAMatch.h, NFAMatch.cpp - Modifies Meyer's algorithm, calculates the edit distance between a string and an automaton
+</li><li>data.zip  - data (text file zipped)
+</li><li>query.zip  - queries (text file zipped)
+</li></ul><p>
+Useful parameters:
+</p>
+<pre class="wiki" xml:space="preserve">const int MAXLEN = 100; //maximum length of a string attribute
+const int PGSIZE = 256; //page size
+const int TRIELEN = 1000; //maximum size of a Trie (in string representation)
+const int K = 400;  //# of centers in MAT-tree
+const int STRDELTA = 3; //threshold for string attribute
+const int NUMDELTA = 4; //threshold for numeric attribute
+const int SIZES = 80000; //size of the dataset
+const int ALPH_SIZE = 29; //size of the alphabet
+#define DATAFILE "data.txt" //input file for dataset
+#define QUERYFILE "query.txt" //query file
+const int NUMQUERY = 10; //# of queries to run
+</pre><p>
+Prepare DATAFILE and QUERYFILE.  Each record is in one line, with a
+string followed by by aq numeric value.  In the case there are white
+spaces in the string, you need to replace them with special characters
+first.
+</p>
+<h2 id="Performance">Performance</h2>
+<p>
+The performance results are available in [1].
+</p>
+<h2 id="Contributors">Contributors</h2>
+<ul><li>Chen Li
+</li><li>Liang Jin
+</li></ul><hr></hr>
+<p>
+[1] Liang Jin, Nick Koudas, Chen Li, Anthony K. H. Tung: Indexing Mixed Types for Approximate Retrieval. VLDB 2005: 793-804
+</p>
+
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

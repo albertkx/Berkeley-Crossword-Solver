@@ -1,0 +1,17 @@
+wordlist/data/curr/mlg.txt           # list of word-no-space score
+wordlist/data/curr/fillstats         # p(score | word in puzzle)
+wordlist/data/curr/pos_complete      # POS for all words
+wordlist/data/curr/parse_complete    # clue parse information
+wordlist/data/curr/first_last        # POS based on first/last clue word
+wordlist/data/curr/stats             # word appearance in clue information
+wordlist/static/all_roots            # word roots
+wordlist/static/basic_english        # basic English words, from CCW
+wordlist/data/curr/dictwords.txt     # list of word-with-spaces; score
+wordlist/static/cmudict.0.7a         # known pronunciations
+wordlist/static/queries              # words with spaces
+wordlist/data/curr/okclues           # raw clues
+data/curr/db.bin                     # output database
+data/curr/flamingo.bin               # flamingo parts
+data/curr/pflamingo.bin              # flamingo for pronunciation parts
+wordlist/static/mthesaur.txt         # moby thesaurus
+wordlist/fitb/                       # FITB directory

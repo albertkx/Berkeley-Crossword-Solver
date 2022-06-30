@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      LbakTreeDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<p>
+</p><div class="wiki-toc"><ol><li><a href="#LBAK-Tree" shape="rect">LBAK-Tree</a><ol><li><a href="#Introduction" shape="rect">Introduction</a></li><li>
+<a href="#Overview" shape="rect">Overview</a><ol><li><a href="#Fixed-LevelFL" shape="rect">Fixed-Level (FL)</a></li><li>
+<a href="#Variable-LevelVL" shape="rect">Variable-Level (VL)</a></li><li>
+<a href="#Variable-LevelExploitingKeywordFrequenciesVLF" shape="rect">Variable-Level Exploiting Keyword Frequencies (VLF)</a></li></ol></li><li>
+<a href="#Contributors" shape="rect">Contributors</a></li><li>
+<a href="#References" shape="rect">References</a></li></ol></li></ol></div><p>
+</p>
+<h1 id="LBAK-Tree">LBAK-Tree</h1>
+<h2 id="Introduction">Introduction</h2>
+<p>
+This module provides <strong>l</strong>ocation-<strong>b</strong>ased <strong>a</strong>pproximate <strong>k</strong>eyword search. <br></br>
+</p>
+<p>
+For example, it can answer queries such as <strong>find Alkatras near San Fransisco</strong>. Notice that <strong>Alkatras</strong> is misspelled but the LBAK-Tree can still find useful answers.
+In short, the LBAK-Tree answers queries with a spatial component and a keyword component, where the keywords don't need to match exactly but approximately.
+</p>
+<h2 id="Overview">Overview</h2>
+<p>
+The LBAK-Tree is based on a hierarchical spatial index that is enhanced with inverted indexes for approximate string lookups. In our implementation we use an R*-Tree as spatial index and use the FilterTreeDoc module (part of Flamingo) to implement the inverted indexes for approximate string lookups.
+</p>
+<p>
+Our paper <strong>Supporting Location-Based Approximate-Keyword Queries</strong> describes three variants of the LBAK-Tree which differ in where they place inverted indexes in the spatial index. This module contains all their implementations:
+</p>
+<h3 id="Fixed-LevelFL">Fixed-Level (FL)</h3>
+<ul><li>Inverted indexes are placed at one level in the R*-Tree
+</li></ul><p>
+<img width="30%" alt="Illustration of FL algorithm" title="Illustration of FL algorithm" src="media/fl.jpg"></img>
+</p>
+<h3 id="Variable-LevelVL">Variable-Level (VL)</h3>
+<ul><li>Inverted indexes can be placed at different levels in the R*-Tree
+</li></ul><p>
+<img width="30%" alt="Illustration of VL algorithm" title="Illustration of VL algorithm" src="media/vl.jpg"></img>
+</p>
+<h3 id="Variable-LevelExploitingKeywordFrequenciesVLF">Variable-Level Exploiting Keyword Frequencies (VLF)</h3>
+<ul><li>Inverted indexes are placed at various levels, 
+</li><li>Keyword-frequencies are exploited to improve performance
+</li></ul><p>
+<img width="30%" alt="Illustration of VLF algorithm" title="Illustration of VLF algorithm" src="media/vlf.jpg"></img>
+</p>
+<p>
+Please have a look at <strong>example.cc</strong> in the lbaktree/src folder to get started!
+</p>
+<h2 id="Contributors">Contributors</h2>
+<ul><li>Sattam Alsubaiee (design, main author)
+</li><li>Shengyue Ji (R*-Tree implementation)
+</li><li>Alexander Behm (author)
+</li><li>Chen Li (project leader)
+</li></ul><h2 id="References">References</h2>
+<ul><li>Sattam Alsubaiee, Alexander Behm, Chen Li: Supporting Location-Based Approximate-Keyword Queries, ACM SIGSPATIAL GIS 2010
+</li></ul>
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

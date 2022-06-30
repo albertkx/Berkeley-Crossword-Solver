@@ -1,0 +1,15 @@
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/rebuild_cache.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/edit_cache.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/perftest_topk.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/topk-lib.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/unittest_topk.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/perftest_util_topk.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/example_topk.dir
+/home/ginsberg/xw/drfill/flamingo/src/topk/CMakeFiles/perftest_exps_topk.dir
+/home/ginsberg/xw/drfill/flamingo/src/util/CMakeFiles/rebuild_cache.dir
+/home/ginsberg/xw/drfill/flamingo/src/util/CMakeFiles/edit_cache.dir
+/home/ginsberg/xw/drfill/flamingo/src/util/CMakeFiles/util-lib.dir
+/home/ginsberg/xw/drfill/flamingo/src/util/CMakeFiles/unittest.dir
+/home/ginsberg/xw/drfill/flamingo/src/common/CMakeFiles/rebuild_cache.dir
+/home/ginsberg/xw/drfill/flamingo/src/common/CMakeFiles/common-lib.dir
+/home/ginsberg/xw/drfill/flamingo/src/common/CMakeFiles/edit_cache.dir

@@ -1,0 +1,16 @@
+$Id: README 6148 2012-02-22 23:13:40Z salsubaiee $
+
+1) Running the code: in the lbaktree directory, type "cmake ." and then "make" to compile the code. Run the compiled example in the "build" directory.
+
+2) Data and queries files: the files should use the following format:
+    a. each line represents one record/query
+    b. each record consists of latitude and longitude separated
+    by a white space, note that you can modify the unittest.cc code to accept rectangular records instead of points.
+    c. each query is a rectangle with two points
+    c. the coordinates are followed by a comma, and then the keywords
+    d. the keywords are separated by a white space
+   Here is an example of a record:
+   42.3631 -71.065, all phase plumbing
+   Here is an example of a query:
+   55.9551 -159.067 56.5551 -158.467, chignik school
+   

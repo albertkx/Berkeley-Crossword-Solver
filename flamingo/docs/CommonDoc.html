@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      CommonDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<p>
+</p><div class="wiki-toc"><ol><li><a href="#Common" shape="rect">Common</a><ol><li><a href="#Introduction" shape="rect">Introduction</a></li><li>
+<a href="#Overview" shape="rect">Overview</a></li><li>
+<a href="#Contributors" shape="rect">Contributors</a></li></ol></li></ol></div><p>
+</p>
+<h1 id="Common">Common</h1>
+<h2 id="Introduction">Introduction</h2>
+<p>
+This module provides the core functionality for approximate string search. It includes similarity metrics, gram generators and the query class.
+</p>
+<h2 id="Overview">Overview</h2>
+<ol><li>We support the following similarity functions / distance measures:
+<ul><li>Levenshtein Distance (aka the Edit Distance) <a class="ext-link" href="http://en.wikipedia.org/wiki/Levenshtein_distance" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Levenshtein_distance</span></a>
+</li><li>Jaccard Similarity <a class="ext-link" href="http://en.wikipedia.org/wiki/Jaccard_Similarity_Coefficient" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Jaccard_Similarity_Coefficient</span></a>
+</li><li>Cosine Similarity <a class="ext-link" href="http://en.wikipedia.org/wiki/Cosine_similarity" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Cosine_similarity</span></a> 
+</li><li>Dice Similarity <a class="ext-link" href="http://en.wikipedia.org/wiki/Dice%27s_coefficient" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Dice%27s_coefficient</span></a>
+</li></ul></li></ol><ol start="2"><li>We support generation of fixed length grams into various C++ containers, with or without positional information. Grams can be strings or hashed strings (hashed to an unsigned int).
+</li></ol><ol start="3"><li>The query class contains the query string, similarity measure, similarity threshold, etc.
+</li></ol><h2 id="Contributors">Contributors</h2>
+<ul><li>Alexander Behm (design, implementation)
+</li><li>Chen Li (design, project leader)
+</li><li>Jiaheng Lu (implementation)
+</li><li>Rares Vernica (design, main author)
+</li><li>Shengyue Ji (design, implementation)
+</li></ul>
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

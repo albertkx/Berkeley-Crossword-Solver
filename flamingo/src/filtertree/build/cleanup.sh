@@ -1,0 +1,1 @@
+rm *.txt *.rm *.ix

@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      FilterTreeDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<p>
+</p><div class="wiki-toc"><ol><li><a href="#Filtertree" shape="rect">Filtertree</a><ol><li><a href="#Introduction" shape="rect">Introduction</a></li><li>
+<a href="#ApproximateStringSearch" shape="rect">Approximate String Search</a></li><li>
+<a href="#Overview" shape="rect">Overview</a><ol><li><a href="#IndexingOptions" shape="rect">Indexing Options</a></li><li>
+<a href="#OtherFunctionality" shape="rect">Other Functionality</a></li></ol></li><li>
+<a href="#AnsweringApproximateStringQueries" shape="rect">Answering Approximate String Queries</a></li><li>
+<a href="#TheFiltertreeStructure" shape="rect">The Filtertree Structure</a><ol><li><a href="#Recommendations" shape="rect">Recommendations</a></li></ol></li><li>
+<a href="#High-LevelOverviewofImportantComponents" shape="rect">High-Level Overview of Important Components</a><ol><li><a href="#GeneralComponents" shape="rect">General Components</a></li><li>
+<a href="#IndexersSearchersandListMergers" shape="rect">Indexers, Searchers, and ListMergers</a></li></ol></li><li>
+<a href="#StatsGenOutput" shape="rect">StatsGen Output</a></li><li>
+<a href="#Contributors" shape="rect">Contributors</a></li></ol></li></ol></div><p>
+</p>
+<h1 id="Filtertree">Filtertree</h1>
+<h2 id="Introduction">Introduction</h2>
+<p>
+This module supports efficient approximate string search on a collection of strings. An approximate query asks for all strings in the collection that are "similar" to the query string for a given similarity function and similarity threshold.
+</p>
+<h2 id="ApproximateStringSearch">Approximate String Search</h2>
+<p>
+Many applications need to answer approximate string queries. The following are a few examples:
+</p>
+<ul><li>Spellchecking: suggest good words for a possibly mistyped word. 
+</li><li>Record linkage: identify records that could represent the same real-world entity. 
+</li><li>The "Did you mean" feature by many search engines partially relies on finding words similar to a given keyword. 
+</li></ul><h2 id="Overview">Overview</h2>
+<h3 id="IndexingOptions">Indexing Options</h3>
+<p>
+We provide three different flavors of indexing+searching, each of which provide specific optimizations for improving query performance:
+</p>
+<ol><li>All structures are in main memory, including:
+<ul><li>String collection
+</li><li>Filtertree
+</li><li>Inverted index 
+</li></ul></li></ol><ol start="2"><li>All structures are in main memory. We use lossy compression on the inverted index to save space.
+<ul><li>String collection in memory
+</li><li>Filtertree in memory
+</li><li>Inverted index in memory (compressed) 
+</li></ul></li></ol><ol start="3"><li>The data and inverted index is on disk.
+<ul><li>String collection on disk
+</li><li>Filtertree in memory
+</li><li>Inverted index on disk 
+</li></ul></li></ol><h3 id="OtherFunctionality">Other Functionality</h3>
+<p>
+We support the following similarity functions / distance measures:
+</p>
+<ul><li>Levenshtein Distance (aka the Edit Distance) <a class="ext-link" href="http://en.wikipedia.org/wiki/Levenshtein_distance" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Levenshtein_distance</span></a>
+</li><li>Jaccard Similarity <a class="ext-link" href="http://en.wikipedia.org/wiki/Jaccard_Similarity_Coefficient" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Jaccard_Similarity_Coefficient</span></a>
+</li><li>Cosine Similarity <a class="ext-link" href="http://en.wikipedia.org/wiki/Cosine_similarity" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Cosine_similarity</span></a> 
+</li><li>Dice Similarity <a class="ext-link" href="http://en.wikipedia.org/wiki/Dice%27s_coefficient" shape="rect"><span class="icon">http://en.wikipedia.org/wiki/Dice%27s_coefficient</span></a>
+</li></ul><p>
+We support the following single-signature filters (e.g. for partitioning the string collection):
+</p>
+<ul><li>Length Filter
+</li><li>Charsum Filter
+</li></ul><p>
+The index structure (filtertree + inverted index) can be saved/loaded to/from a file.
+</p>
+<h2 id="AnsweringApproximateStringQueries">Answering Approximate String Queries</h2>
+<p>
+To answer queries efficiently this module uses an inverted-list index on the q-grams of the strings in the collection. That is, each string is decomposed into substrings (grams) of size q using a sliding window, and then for each gram we build a list of string ids containing that gram (the inverted list of that gram). The process of answering queries is based on the observation that if two strings are similar, then they must share a certain number of common grams (depending on the similarity function and similarity threshold). False-positives must be removed in a post-processing step, i.e. the true similarities are computed.
+</p>
+<p>
+In addition to the above we can further increase the performance of queries by using filters. A single-signature filter partitions the string collection into disjoint subsets based on some criteria. For answering a query we only need to consider some of the subsets. For example, if we were looking for all strings in the collection within an edit-distance of 1 to the string "abcde", then we know that any answer string must have a length in [4,6]. So, if we partition the string collection using the length of the strings we can avoid processing irrelevant string ids during query answering. 
+The charsum filter is similar to the length filter. We partition the data strings based on their charsums (sum of characters in the string). For query answering we can determine a range of charsums that answers must lie in.
+</p>
+<h2 id="TheFiltertreeStructure">The Filtertree Structure</h2>
+<p>
+The filtertree structure facilitates the use of filters. Each level in the tree partitions the string collection based on one filter. Each leaf node contains a gram inverted-index on the subset of strings belonging to that leaf. For answering a query we traverse the tree to identify leaf nodes that "survive" the filtering criteria, and probe the inverted indexes attached to those leaves to get a list of candidate answers. The following is an example of a filtertree with a fanout of 3 and both the length and charsum filter applied:
+</p>
+<p>
+<img width="50%" alt="Filtertree structure with two partitioning filters" title="Filtertree structure with two partitioning filters" src="media/FiltertreeStructure.png"></img>
+</p>
+<h3 id="Recommendations">Recommendations</h3>
+<p>
+In most cases, using exactly one partitioning filter yields the best performance. An intuitive (but simplified) explanation is as follows:
+</p>
+<ul><li>For the in-memory indexes, there is trade-off between processing several inverted indexes with short lists or processing fewer inverted indexes with longer lists
+</li><li>For the disk-based indexes the layout of the inverted lists in the file can be optimized if exactly one partitioning filter is used
+</li></ul><h2 id="High-LevelOverviewofImportantComponents">High-Level Overview of Important Components</h2>
+<ul><li>The purpose of this overview is to give the reader a feeling for the code design
+</li><li>Many details, such as methods, method parameters, and attributes have been left out for simplicity
+</li><li><strong>Blue components</strong> are meant for in-memory indexes
+</li><li><strong>Yellow components</strong> are meant for disk-based indexes
+</li><li><strong>Red components</strong> are meant for in-memory indexes compressed with CombineLists
+</li><li><strong>Green components</strong> are meant for in-memory indexes compressed with DiscardLists
+</li></ul><h3 id="GeneralComponents">General Components</h3>
+<p>
+<img src="media/GeneralComponents.png" alt="Code overview of general components" title="Code overview of general components"></img>
+</p>
+<h3 id="IndexersSearchersandListMergers">Indexers, Searchers, and ListMergers</h3>
+<p>
+<img src="media/IndexersSearchersMergers.png" alt="Code overview of indexers, searchers and mergers" title="Code overview of indexers, searchers and mergers"></img>
+</p>
+<h2 id="StatsGenOutput">StatsGen Output</h2>
+<p>
+The StatsGenerator allows collecting of performance data on the approximate string search library. For example, different filters, merging algorithms, datasets, query workloads can be tested.
+A good start is perftest.cc included in the filtertree folder. The performance numbers are written to an output file (e.g. perftest.cc writes to "perftest_search_stats.txt").
+The StatsGenerator is intended for advanced users who are familiar with the algorithmic details of approximate string search. The numbers generated depict different steps in the process of query answering and will only be understood by people familiar with the subject. 
+For getting an idea of the query performance using certain parameters it is sufficient to focus on the field "total time" which measures the average query performance of the given workload.
+</p>
+<h2 id="Contributors">Contributors</h2>
+<ul><li>Alexander Behm (design, main author)
+</li><li>Chen Li (design, project leader)
+</li><li>Rares Vernica (design)
+</li><li>Shengyue Ji (design, implementation)
+</li><li>Yiming Lu (design, implementation)
+</li></ul>
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

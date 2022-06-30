@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      PartEnumDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<h1 id="PartEnum">PartEnum</h1>
+<h2 id="Overview">Overview</h2>
+<p>
+The module contains an implementation of the technique presented in [1]. The technique was invented in the <a class="ext-link" href="http://research.microsoft.com/en-us/projects/datacleaning/default.aspx" shape="rect"><span class="icon">Data Cleaning Project</span></a> at Microsoft, Research.
+</p>
+<h2 id="Usage">Usage</h2>
+<p>
+For compiling instructions, please see CompileDoc.
+</p>
+<p>
+The module uses C++ STL TR1 library provided by GNU GCC and Boost 1.34.1 library.
+</p>
+<p>
+On systems with the aptitude package manager (e.g. Ubuntu, Debian) you can install all required packages by typing the following as root user (or using sudo):
+</p>
+<pre class="wiki" xml:space="preserve">$ sudo apt-get install libboost-dev
+</pre><p>
+An example of how to use the module is available in src/partenum/example.cc.
+</p>
+<h2 id="Interface">Interface</h2>
+<p>
+The main class of the module is ParEnum which is declared in src/partenum/partenum.h.
+</p>
+<p>
+The main methods of PartEnum are:
+</p>
+<pre class="wiki" xml:space="preserve">  PartEnum(const vector&lt;string&gt; &amp;data, 
+           unsigned q, 
+           unsigned editdist, 
+           unsigned n1, 
+           unsigned n2);
+
+  PartEnum(const vector&lt;string&gt; &amp;data, 
+           const string &amp;filename);
+
+  void build();
+  void saveIndex(const string &amp;filename) const;  
+
+  void search(const string &amp;query, vector&lt;unsigned&gt; &amp;results);
+  void search(const string &amp;query, const unsigned editdist,
+              vector&lt;unsigned&gt; &amp;results);
+</pre><p>
+The main idea is that the user can create a PartEnum object by specifying a vector of strings (dataset) and a few extra parameters (see [1] for details) or load an existing object from a file. If the object was not loaded, then it needs to be built. Next, the user has the option of saving the object to a file. In order to search approximately in the dataset for a given string, the user calls the function <tt>search</tt>. 
+</p>
+<h2 id="Performance">Performance</h2>
+<p>
+Pentium D 3.4GHz Dual Core, 2GB memory, Linux (Ubuntu), g++. A data set of 54,000 person names.
+</p>
+<table class="wiki">
+<tr><td rowspan="1" colspan="1"> <strong>Technique</strong> </td><td rowspan="1" colspan="1"> <strong>Dataset Size</strong> </td><td rowspan="1" colspan="1"> <strong>Ed Threshold</strong> </td><td rowspan="1" colspan="1"> <strong>Q</strong> </td><td rowspan="1" colspan="1"> <strong>Time (ms)</strong> </td><td rowspan="1" colspan="1"> <strong>Index size (MB)</strong> </td><td rowspan="1" colspan="1"> <strong>Comments</strong> 
+</td></tr><tr><td rowspan="1" colspan="1"> Scan            </td><td rowspan="1" colspan="1"> 54k </td><td rowspan="1" colspan="1"> 1 </td><td rowspan="1" colspan="1"> - </td><td rowspan="1" colspan="1"> 11.86 </td><td rowspan="1" colspan="1">  1.3 </td><td rowspan="1" colspan="1"> 
+</td></tr><tr><td rowspan="1" colspan="1"> Scan            </td><td rowspan="1" colspan="1"> 54k </td><td rowspan="1" colspan="1"> 2 </td><td rowspan="1" colspan="1"> - </td><td rowspan="1" colspan="1"> 21.30 </td><td rowspan="1" colspan="1">  1.6 </td><td rowspan="1" colspan="1"> 
+</td></tr><tr><td rowspan="1" colspan="1"> Scan            </td><td rowspan="1" colspan="1"> 54k </td><td rowspan="1" colspan="1"> 3 </td><td rowspan="1" colspan="1"> - </td><td rowspan="1" colspan="1"> 35.49 </td><td rowspan="1" colspan="1">  4.2 </td><td rowspan="1" colspan="1"> 
+</td></tr><tr><td rowspan="1" colspan="1"> - </td><td rowspan="1" colspan="1"> </td><td rowspan="1" colspan="1"> </td><td rowspan="1" colspan="1"> </td><td rowspan="1" colspan="1">  </td><td rowspan="1" colspan="1"> </td><td rowspan="1" colspan="1"> 
+</td></tr><tr><td rowspan="1" colspan="1"> PartEnum </td><td rowspan="1" colspan="1"> 54k </td><td rowspan="1" colspan="1"> 1 </td><td rowspan="1" colspan="1"> 2 </td><td rowspan="1" colspan="1">  1.21 </td><td rowspan="1" colspan="1"> 57.3 </td><td rowspan="1" colspan="1"> n1=2,n2=8 
+</td></tr><tr><td rowspan="1" colspan="1"> PartEnum </td><td rowspan="1" colspan="1"> 54k </td><td rowspan="1" colspan="1"> 2 </td><td rowspan="1" colspan="1"> 2 </td><td rowspan="1" colspan="1"> 12.04 </td><td rowspan="1" colspan="1"> 60.2 </td><td rowspan="1" colspan="1"> n1=3,n2=8 
+</td></tr><tr><td rowspan="1" colspan="1"> PartEnum </td><td rowspan="1" colspan="1"> 54k </td><td rowspan="1" colspan="1"> 3 </td><td rowspan="1" colspan="1"> 1 </td><td rowspan="1" colspan="1"> 35.24 </td><td rowspan="1" colspan="1"> 34.8 </td><td rowspan="1" colspan="1"> n1=2,n2=7 
+</td></tr></table>
+<h2 id="Contributors">Contributors</h2>
+<ul><li>Rares Vernica
+</li></ul><hr></hr>
+<p>
+[1] Arvind Arasu, Venkatesh Ganti, Raghav Kaushik: Efficient Exact Set-Similarity Joins. VLDB 2006: 918-929
+</p>
+
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

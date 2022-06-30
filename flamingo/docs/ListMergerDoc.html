@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      ListMergerDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<p>
+</p><div class="wiki-toc"><ol><li><a href="#ListMerger" shape="rect">ListMerger</a><ol><li><a href="#Introduction" shape="rect">Introduction</a></li><li>
+<a href="#Overview" shape="rect">Overview</a></li><li>
+<a href="#Contributors" shape="rect">Contributors</a></li><li>
+<a href="#References" shape="rect">References</a></li></ol></li></ol></div><p>
+</p>
+<h1 id="ListMerger">ListMerger</h1>
+<h2 id="Introduction">Introduction</h2>
+<p>
+This module provides list-merging algorithms for solving the T-occurrence problem in approximate string search.
+</p>
+<h2 id="Overview">Overview</h2>
+<p>
+The following list-merging algorithms are included:
+</p>
+<ul><li>HeapMerger - pop list-heads to a heap, push from heap and count occurrences of each element
+</li><li>ScanCount - uses one counter for every possible stringid (scan count array), traverses inverted lists and increments counts in the array
+</li><li>MergeOpt - separate long lists from short lists, for short lists use heap merge, for long lists do binary search on candidates from short lists
+</li><li>MergeSkip - like heapmerger, but uses the merging-threshold to skip elements on the lists
+</li><li>DivideSkip - combines MergeOpt and MergeSkip, skipping is used for the short lists, binary search is done on the long lists
+</li></ul><ul><li>OnDiskMergerSimple - reads inverted lists and runs DivideSkipMerger
+</li><li>OnDiskMergerAdapt - balances costs of reading inverted lists (from disk) and post-processing candidates (from disk)
+</li></ul><h2 id="Contributors">Contributors</h2>
+<ul><li>Alexander Behm (design, main author)
+</li><li>Chen Li (design, implementation, project leader)
+</li><li>Jiaheng Lu (design, main author)
+</li></ul><h2 id="References">References</h2>
+<ul><li>Chen Li, Jiaheng Lu, Yiming Lu: Efficient Merging and Filtering Algorithms for Approximate String Searches, ICDE'08, April 2008
+</li></ul>
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

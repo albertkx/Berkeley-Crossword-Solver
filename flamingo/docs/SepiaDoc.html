@@ -1,0 +1,58 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      SepiaDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<h1 id="SEPIA">SEPIA</h1>
+<h2 id="Overview">Overview</h2>
+<p>
+The module contains the implementation of the technique presented in [1] and [2].
+</p>
+<h2 id="Usage">Usage</h2>
+<p>
+For compiling instructions, please see CompileDoc.
+</p>
+<p>
+An example of how to use the module is available in <tt>src/sepia/example.cc</tt>.
+</p>
+<h2 id="Interface">Interface</h2>
+<p>
+The main class of the module is Sepia which is declared in <tt>src/sepia/sepia.h</tt>.
+</p>
+<p>
+The main methods of Sepia are:
+</p>
+<pre class="wiki" xml:space="preserve">  Sepia(const vector&lt;string&gt; &amp;dataset, 
+        unsigned thresholdMin,
+        unsigned thresholdMax);
+  Sepia(const vector&lt;string&gt; &amp;dataset,
+        const string &amp;filename);
+
+  void build();
+  void saveData(const string &amp;filename) const;
+  
+  float getEstimateSelectivity(const string &amp;query, unsigned editdist) const;
+</pre><p>
+The main idea is that the user can create a Sepia object by specifying a vector of strings (dataset) and a few extra parameters (for details see [1]) or load an existing one from a file. If the object was not loaded, then it needs to be built. Next, the user has the option of saving the object to a file. In order to estimate the selectivity of a given string, the user calls <tt>select</tt>. 
+</p>
+<h2 id="Performance">Performance</h2>
+<p>
+The performance results are available in [1] and [2].
+</p>
+<h2 id="Contributors">Contributors</h2>
+<ul><li>Rares Vernica
+</li></ul><hr></hr>
+<p>
+[1] Liang Jin and Chen Li: Selectivity Estimation for Fuzzy String Predicates in Large Data Sets. VLDB 2005: 397-408 <br></br>
+[2] Liang Jin, Chen Li, Rares Vernica: SEPIA: estimating selectivities of approximate string predicates in large Databases. VLDB J. 17(5): 1213-1229 (2008)
+</p>
+
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>

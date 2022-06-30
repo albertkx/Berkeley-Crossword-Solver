@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+      StringMapDoc –
+      Group
+    </title><style type="text/css">
+           @import url(media/trac.css);
+          </style></head><body><p><a href="index.html">Back to Index</a></p><hr></hr><div class="wikipage searchable">
+        
+          <p>
+AppString &gt; AppStringDoc
+</p>
+<h1 id="StringMap">StringMap</h1>
+<h2 id="Overview">Overview</h2>
+<p>
+This module supports fuzzy string searching, i.e., finding strings similar to a given a string or a collection of strings, where similarity is defined using edit distance.  It supports both join queries and string-string-search queries.  The approach first maps strings into a high-dimensional Euclidean space.  An R-tree is constructed from the mapped objects. The program will sample from the strings to get a new threshold to be used to do search in the Euclidean space. A similarity string search is converted to a spatial search in the new Euclidean space using R-trees. [1,2] 
+</p>
+<h2 id="Usage">Usage</h2>
+<ul><li><tt>make clean</tt>
+</li><li><tt>make</tt>
+</li><li><tt>date; time ./stringmap_unittest; date</tt>  
+</li><li>After running it once, you can rerun it by using <tt>./stringmap_unittest load</tt> to save some time to do the mapping and construct the R-tree for the single-string-search case.
+</li><li><tt>stringmap_unittest.cpp</tt> shows how to use StringMap. Some parameters can be tuned, such as the sampling percentages, which should depend on the data size.
+</li><li>Some R-tree parameters are defined in rtreeparams.h. e.g., the dimensionality of the Euclidean space is set to 20.
+</li></ul><h2 id="Interface">Interface</h2>
+<p>
+This package includes three data files of names:
+</p>
+<ul><li><tt>source1.txt</tt> (zipped to <tt>source1.zip</tt>) and <tt>source2.txt</tt> (zipped to <tt>source2.zip</tt>) are used for testing join queries
+</li><li><tt>source.txt</tt> (zipped to <tt>source.zip</tt>) is used for testing single-string-search queries, which is a combination of <tt>source1.txt</tt> and <tt>source2.txt</tt>.
+</li><li><tt>source-big.txt</tt> (zipped to <tt>source-big.zip</tt>) is used for testing single-string-search queries, which has more than 111K full names.
+</li></ul><h2 id="Performance">Performance</h2>
+<p>
+We ran this package on a Linux platform with a 2.8GHZ Pentium 4 with 1GB RAM. The join on source1.txt and source2.txt (2000 x 2000 strings) took about 105 seconds (including the time to compute the recall, which was  using nested loop and expensive), and with a recall of 98.9%.  We ran 100 single-string-search queries on 100K name strings, and the average search time is 0.079 seconds, with the average recall 98.8%.
+</p>
+<h2 id="Contributors">Contributors</h2>
+<ul><li>Chen Li
+</li><li>Liang Jin
+</li></ul><hr></hr>
+<p>
+[1] Liang Jin, Chen Li, Sharad Mehrotra: Efficient Record Linkage in Large Data Sets. DASFAA 2003: 137- <br></br> 
+[2] Chen Li, Liang Jin, Sharad Mehrotra: Supporting Efficient Record Linkage for Large Data Sets Using Mapping Techniques. World Wide Web 9(4): 557-584
+</p>
+
+        
+        
+      </div><div class="footer"><hr></hr><p><a href="index.html">Back to Index</a></p></div></body></html>
