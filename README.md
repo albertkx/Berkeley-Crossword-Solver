@@ -3,9 +3,9 @@
 [![datasets](https://img.shields.io/badge/datasets-CrosswordQA-green.svg)](https://huggingface.co/datasets/albertxu/CrosswordQA)
 [![Demo](https://img.shields.io/badge/Streamlit-Demo-informational.svg)](https://berkeleycrosswordsolver.com/j)
 
-This is the official code for the ACL 2022 paper [Automated Crossword Solving](https://arxiv.org/abs/2205.09665). This repository contains the code for replicating training for and running our **Berkeley Crossword Solver** system. We also release pretrained models, precomputed FAISS embeddings, and a crossword clue-answer dataset.
+This is the official code for the ACL 2022 paper [Automated Crossword Solving](https://arxiv.org/abs/2205.09665). This repository contains the code for replicating training and running our **Berkeley Crossword Solver** system. We also release pretrained models, precomputed FAISS embeddings, and a crossword clue-answer dataset.
 
-This code is standalone, but those interested in the Matt Ginsberg's Dr.Fill solver can find it on the `drfill` branch. After the victory at the 2021 ACPT, the original Dr.Fill was retired.  The code is here primarily for archival purposes, and Matt Ginsberg is not in a position to provide assistance with it.
+This code is standalone. Those interested in the Matt Ginsberg's Dr.Fill solver can find it on the `drfill` branch. After the victory at the 2021 ACPT, the original Dr.Fill was retired.  The code is here primarily for archival purposes, and Matt Ginsberg is not in a position to provide assistance with it.
 
 [[PDF]](https://arxiv.org/abs/2205.09665)
 
@@ -114,7 +114,7 @@ Coming soon!
 
 ## Crossword Dataset
 
-The dataset is [available](https://huggingface.co/datasets/albertxu/CrosswordQA) through Huggingface datasets
+The dataset is [available](https://huggingface.co/datasets/albertxu/CrosswordQA) through Huggingface datasets.
 
 ## Rescraping Data
 
