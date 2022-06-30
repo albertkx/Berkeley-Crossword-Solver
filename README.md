@@ -5,7 +5,7 @@
 
 This is the official code for the ACL 2022 paper [Automated Crossword Solving](https://arxiv.org/abs/2205.09665). This repository contains the code for replicating training and running our **Berkeley Crossword Solver** system. We also release pretrained models, precomputed FAISS embeddings, and a crossword clue-answer dataset.
 
-This code is standalone. Those interested in the Matt Ginsberg's Dr.Fill solver can find it on the `drfill` branch. After the victory at the 2021 ACPT, the original Dr.Fill was retired.  The code is here primarily for archival purposes, and Matt Ginsberg is not in a position to provide assistance with it.
+Those interested in the Matt Ginsberg's Dr.Fill solver can find it on the `drfill` branch. After the victory at the 2021 ACPT, the original Dr.Fill was retired.  The Dr.Fill code is here primarily for archival purposes, and Matt Ginsberg is not in a position to provide assistance with it.
 
 [[PDF]](https://arxiv.org/abs/2205.09665)
 
