@@ -1,7 +1,7 @@
 # Automated Crossword Solving
 [![arXiv](https://img.shields.io/badge/arXiv-2205.09665-red.svg)](https://arxiv.org/abs/2205.09665)
 [![datasets](https://img.shields.io/badge/datasets-CrosswordQA-green.svg)](https://huggingface.co/datasets/albertxu/CrosswordQA)
-[![Demo](https://img.shields.io/badge/Streamlit-Demo-informational.svg)](https://berkeleycrosswordsolver.com/j)
+[![Demo](https://img.shields.io/badge/Streamlit-Demo-informational.svg)](https://berkeleycrosswordsolver.com/)
 
 This is the official code for the ACL 2022 paper [Automated Crossword Solving](https://arxiv.org/abs/2205.09665). This repository contains the code for replicating training and running our **Berkeley Crossword Solver** system. We also release pretrained models, precomputed FAISS embeddings, and a crossword clue-answer dataset.
 
