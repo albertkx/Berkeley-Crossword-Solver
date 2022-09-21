@@ -19,16 +19,8 @@ from torch import nn
 from DPR.dpr.models import init_biencoder_components
 from DPR.dpr.options import setup_args_gpu, print_args, set_encoder_params_from_state 
 from DPR.dpr.indexer.faiss_indexers import DenseIndexer, DenseFlatIndexer
-#from DPR.dpr.data.reader_data import ReaderSample, ReaderPassage, get_best_spans
-#from DPR.dpr.models import init_reader_components
 from DPR.dpr.utils.data_utils import Tensorizer
 from DPR.dpr.utils.model_utils import load_states_from_checkpoint, get_model_obj
-
-from transformers import GPT2LMHeadModel, GPT2Tokenizer, T5ForConditionalGeneration, AutoTokenizer
-from segment_fill import segment_fill
-
-SEGMENTER_CACHE = {}
-RERANKER_CACHE = {}
 
 def setup_closedbook(process_id):
     dpr = DPRForCrossword(
@@ -39,43 +31,6 @@ def setup_closedbook(process_id):
         process_id=process_id
     )
     return dpr
-
-def setup_t5_reranker(process_id):
-    tokenizer = AutoTokenizer.from_pretrained('google/byt5-small')
-    model = T5ForConditionalGeneration.from_pretrained('checkpoints/byt5_reranker/')
-    model.eval().to('cuda:'+str(process_id % torch.cuda.device_count()))
-    return model, tokenizer
-
-def t5_reranker_score_with_clue(model, tokenizer, clues, possibly_ungrammatical_fills):
-    global RERANKER_CACHE
-    results = []
-    for clue, possibly_ungrammatical_fill in zip(clues, possibly_ungrammatical_fills):
-        if not possibly_ungrammatical_fill.islower():
-            possibly_ungrammatical_fill = possibly_ungrammatical_fill.lower()
-        clue = preprocess_clue_fn(clue)
-        if clue[-3:] == '. .':
-            clue = clue[:-3]
-        elif clue[-3:] == ' ..':
-            clue = clue[:-3]
-        elif clue[-2:] == '..':
-            clue = clue[:-2]
-        elif clue[-1] == '.':
-            clue = clue[:-1]
-
-        if clue + possibly_ungrammatical_fill in RERANKER_CACHE:
-            results.append(RERANKER_CACHE[clue + possibly_ungrammatical_fill])
-            continue
-        else:
-            with torch.inference_mode():
-                inputs = tokenizer(['Q: ' + clue], return_tensors='pt')['input_ids'].to(model.device)
-                labels = tokenizer([possibly_ungrammatical_fill], return_tensors='pt')['input_ids'].to(model.device)
-                loss = model(inputs, labels=labels)
-                answer_length = labels.shape[1]
-                logprob = -loss[0].item() * answer_length
-                results.append(logprob)
-                RERANKER_CACHE[clue + possibly_ungrammatical_fill] = logprob
-
-    return results
 
 def preprocess_clue_fn(clue):
     clue = str(clue)
@@ -391,26 +346,3 @@ class DPRForCrossword(object):
                 all_answers.append(list(map(self.all_passages.get, ans[0])))
                 all_scores.append(ans[1])
             return all_answers, all_scores
-
-    def get_wikipedia_docs(self, questions, max_docs):
-        # assumes clues are preprocessed
-        assert self.retrievalmodel  
-        questions_tensor = self.retriever.generate_question_vectors(questions)
-
-        # get top k results. add 2 in case of duplicates (see below
-        top_ids_and_scores = self.retriever.get_top_docs(questions_tensor.numpy(), max_docs + 2)  
-
-        all_paragraphs = []
-        for ans in top_ids_and_scores:
-            paragraphs = []
-            for i in range(len(ans[0])):
-                id_ = ans[0][i]
-                id_ = id_.replace("wiki:", "")
-                mydocument = self.all_passages[id_]
-                if mydocument in paragraphs:
-                    print("woah, duplicate!!!")
-                    continue
-                paragraphs.append(mydocument)
-            all_paragraphs.append(paragraphs[0:max_docs])
-        
-        return all_paragraphs
